@@ -44,7 +44,7 @@ class Account extends React.Component {
             	<main>
             		<article>
                 {GetWalletAddress()}
-                  <p>Welcome to ar-shard! <br/><br/>You have logged in with wallet address <small>{GetAddress()}</small>.</p>
+                  <p>Welcome to ar-shard!</p>
                   <Link to="/logout"><button>Logout</button></Link>
 
                   <h4>Generate mnemonic</h4>

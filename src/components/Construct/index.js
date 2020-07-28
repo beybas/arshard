@@ -9,7 +9,8 @@ import Arweave from 'arweave/web';
 class Construct extends React.Component {
     state = {
       all_transactions: [],
-      value: ''
+      value: '',
+      selected_tx: ''
     };
     componentDidMount() {
       if (window.sessionStorage.getItem("wallet")) {
@@ -55,10 +56,10 @@ class Construct extends React.Component {
                   <h3>Transaction(s)</h3>
                   <br/>
                   {this.state.all_transactions.map(tx => (
-                    <li key={tx.key}>{tx}</li>
+                    <li key={tx.key} onClick={() => this.setState({ selected_tx: tx})}><a>{tx}</a></li>
                   ))}
-                  <p>Please copy and paste one of the transaction(s) above that you wan't to recover mnemonic</p>
-                  <input type="text" id="txid" name="txid" placeholder="Enter TX" value={this.state.value} onChange={this.handleChange} ></input>
+                  <p>Please select one of the transactions above.</p>
+                  <input type="text" id="txid" name="txid" placeholder="Enter TX" value={this.state.selected_tx} onChange={this.handleChange} ></input>
                   <br/>
                   <Link to="/recover"><button>Recover</button></Link>
             		</article>

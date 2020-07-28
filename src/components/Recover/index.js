@@ -28,11 +28,20 @@ class Recover extends React.Component {
         (async () => {
           const arweave = Arweave.init();
           arweave.transactions.getData(window.sessionStorage.getItem('transactionID'), {decode: true, string: true}).then(data => {
-            var secrets = require('secrets.js');
-            var shares = [window.sessionStorage.getItem("BackupShare"), data]
-            var comb = secrets.combine( shares );
-            alert(comb.match(/.{1,4}/g).reduce((acc,char)=>acc+String.fromCharCode(parseInt(char, 16)),""));
-            console.log(data);
+            try {
+              var secrets = require('secrets.js');
+              const bip39 = require('bip39');
+              var shares = [window.sessionStorage.getItem("BackupShare"), data]
+              var comb = secrets.combine( shares );
+              if (bip39.validateMnemonic(comb.match(/.{1,4}/g).reduce((acc,char)=>acc+String.fromCharCode(parseInt(char, 16)),""))) {
+                alert(comb.match(/.{1,4}/g).reduce((acc,char)=>acc+String.fromCharCode(parseInt(char, 16)),""));
+                console.log(data);
+              } else {
+                alert('Bad recovery share');
+              }
+            } catch (err) {
+              alert('Bad recovery share');
+            }
           });
         })();
       }
@@ -43,11 +52,10 @@ class Recover extends React.Component {
             	<main>
             		<article>
                   <p>Recovering {getTXID()}</p>
-                  <p>Please enter backup share provided to you</p>
+                  <p>Please enter recovery share provided to you</p>
                   <textarea value={this.state.value} onChange={this.handleChange}></textarea>
                   <br />
                   <button onClick={recoverMnemonic}>Recover</button>
-                  <p>If backup share is wrong, nothing will happen. Try to remove whitespaces and check if backup share is true.</p>
             		</article>
             	</main>
             </div>

@@ -40,13 +40,10 @@ class Upload extends React.Component {
                   <h5>Mnemonic</h5>
                   <p>This mnemonic is being used</p>
                   <textarea disabled>{GetMnemonic()}</textarea>
-                  <h5>Share</h5>
+                  <h5>Recovery share</h5>
                   <p>Please confirm you have saved this to elsewhere</p>
                   <textarea disabled>{GetShare()}</textarea>
-                  <h5>Backup Share</h5>
-                  <p>This will uploaded to Arweave and without the "Share", you won't be able to get "Mnemonic".</p>
-                  <textarea disabled>{GetBackupShare()}</textarea>
-                  <br />
+                  <p>There are actually two shares, one is not shown to you but uploaded to Arweave and you can recover the mnemonic using 2 shares, so you should back up recovery share seperately.</p>
                   <button onClick={ArweaveUpload}>Upload</button>
             		</article>
             	</main>

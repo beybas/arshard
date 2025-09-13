@@ -10,7 +10,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "arweave": "^1.8.0",
+    "arweave": "^1.15.7",
     "bip39": "^3.0.2",
     "clsx": "latest",
     "react": "latest",
